@@ -63,11 +63,12 @@ function! TabLabel(buf, max_width) abort
     return l:left . l:short_name . ' ' . WebDevIconsGetFileTypeSymbol(l:name) . l:right
 endfunction
 
-function! TabLine() abort
-    return crystalline#bufferline(0, 0, 0, 1, 'TabLabel', crystalline#default_tabwidth() + 3)
-endfunction
+# TODO fix this
+# function! TabLine() abort
+#     return crystalline#bufferline(0, 0, 0, 1, 'TabLabel', crystalline#default_tabwidth() + 3)
+# endfunction
 
-set tabline=%!TabLine()
+# set tabline=%!TabLine()
 
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_grep = 'rg --no-config --color=never'
@@ -205,8 +206,10 @@ set updatetime=1000
 """"""""""""
 " Terminal "
 """"""""""""
-set shell=powershell shellpipe=\| shellredir=> shellquote= shellxquote=
-set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
+if stridx(&shell, 'posh')!=-1
+    set shell=powershell shellpipe=\| shellredir=> shellquote= shellxquote=
+    set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
+endif
 
 if has('nvim') || has('termguicolors')
     set termguicolors
